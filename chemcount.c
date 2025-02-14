@@ -14,7 +14,7 @@
 //          if closing parenthesis: repeat a, free inParenthesis when done
 // 7. Return pointer of struct
 
-cElement* chemCount(char* chemCompound) {
+cElement* chemcount(char* chemCompound) {
     // 1. Validate the syntax of the chemCompound
     if(isWrongSyntax(chemCompound)) return NULL;
     
