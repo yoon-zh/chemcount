@@ -1,4 +1,4 @@
-# Chemical Element Parser - chemCount()
+# Chemical Compound Parser - chemCount()
 
 ## What is it?
 
@@ -6,9 +6,9 @@ A simple library in C for a chemical formula parser that converts strings like `
 
 ## Features
 
-- Parses chemical formulas (e.g., CoCl3 6(NH3)) into element counts.
-- Handles parentheses for grouped compounds (e.g., (NH3)6 → N:6, H:18).
-- Returns a `cElement` struct with total element count (TTT) and individual element quantities
+- Parses chemical formulas (e.g., `CoCl3 (NH3)6`) into element counts
+- Handles parentheses for grouped compounds (e.g., `(NH3)6 → N:6, H:18`)
+- Returns a `cElement` struct with total element count `"TTT"` and individual element quantities
 
 ## Installation
 
@@ -41,7 +41,7 @@ cElement[0].name = "TTT";
 cElement[0].amount = N;
 ```
 
-The first element in the struct has the title "TTT" and N is the total unique elements in the formula.
+The first element in the struct has the title `"TTT"` and `N` is the total unique elements in the formula.
 
 ```c
 for (int i = 0; i < cElement[0].amount+1; i++) {
@@ -56,6 +56,7 @@ The other objects in the `cElement` struct contain the string of the element and
 ```c
 chemcount("C2H5OH");
 /* Returns:
+ * ["TTT", 3]
  * ["C", 2]
  * ["H", 6]
  * ["O", 1]
@@ -63,6 +64,7 @@ chemcount("C2H5OH");
 
 chemcount("CoCl3 (NH3)6");
 /* Returns:
+ * ["TTT", 4]
  * ["Co", 1]
  * ["Cl", 3]
  * ["N", 6]
@@ -112,6 +114,6 @@ gcc main.c chemcount.o -o main
 ```
 
 ## Assumptions
-- Case-sensitive: Co (cobalt) ≠ CO (carbon monoxide).
-- Parentheses: Coefficients outside parentheses apply to all nested elements (e.g., (H2O)2 → H:4, O:2).
-- Implicit "1": Missing counts are treated as 1 (e.g., OH → O:1, H:1).
+- Case-sensitive: `Co` (cobalt) ≠ `CO` (carbon monoxide).
+- Parentheses: Coefficients outside parentheses apply to all nested elements (e.g., `(H2O)2 → H:4, O:2`).
+- Implicit "1": Missing counts are treated as 1 (e.g., `OH → O:1, H:1`).
