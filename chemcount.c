@@ -16,7 +16,10 @@
 
 cElement* chemcount(char* chemCompound) {
     // 1. Validate the syntax of the chemCompound
-    if(isWrongSyntax(chemCompound)) return NULL;
+    if(isWrongSyntax(chemCompound)) { 
+        printf("Invalid Syntax: %s\n", chemCompound);
+        return NULL;
+    }
     
     // 2. Define struct for myElements, malloc for 1 space (will use reallocation for every found element)
     cElement* myElements = malloc(sizeof(cElement));
@@ -33,7 +36,7 @@ cElement* chemcount(char* chemCompound) {
 }
 
 void findElements(char* chemCompound, cElement** myElements) {
-    int i, j;                   // Counter
+    size_t i, j;                   // Counter
     int elemPos;                // Position of search finding in string chemCompound
     float amount;               // Amount of elements denoted by a digit in chemCompound
     float multiplier = 1;       // Multiplier for elements inside a parenthesis
@@ -41,12 +44,19 @@ void findElements(char* chemCompound, cElement** myElements) {
     size_t chemClength = strlen(chemCompound); // Length of input string
     for (i = 0; i < chemClength; i++) {
         switch (chemCompound[i]) {
-        // 1. If a parenthesis is found, look for the end and get the multiplier number
-        case '(':
-            j = i+1;  // j will store the position
-            while(chemCompound[j++] != ')');
+        // 1. If a parenthesis is found, look for the beginning/end and get the multiplier number
+        case '(': 
+            // 1. Look for numbers before the parenthesis
+            j = i-1; // j will look for the number length
+            while(isdigit(chemCompound[j--]) && j>0); // Move to the beginning of the number
             // Store multiplier for future elements
-            multiplier = readDigits(chemCompound, chemClength, j);
+            multiplier = readDigits(chemCompound, j);
+            
+            // 2. Look for numbers after the parenthesis
+            j = i+1;  // j will store the position
+            while(chemCompound[j++] != ')'); // Move to the end of the parenthesis
+            // Store multiplier for future elements
+            multiplier *= readDigits(chemCompound, j);
             break;
         // 2. If a closing parenthesis is found, reset multiplier to 1.
         case ')':
@@ -62,7 +72,7 @@ void findElements(char* chemCompound, cElement** myElements) {
                 elemPos = (*myElements)[0].amount; // Set elemPos to final element
             }
             // b. Look for digits after elemSearch result
-            amount = readDigits(chemCompound, chemClength, i+strlen(elemSearch));
+            amount = readDigits(chemCompound, i+strlen(elemSearch));
             // c. Sum digits to element
             (*myElements)[elemPos].amount += (amount*multiplier);
             break;
@@ -114,7 +124,7 @@ void addToMyElements(char* elem, cElement** myElements) {
     (*myElements)[myElementsNum].amount = 0;
 }
 
-float readDigits(char* chemCompound, int chemClength,int elemPos) {
+float readDigits(char* chemCompound, int elemPos) {
     char digitInString[MAX_CHEMSTRLEN];
     memset(digitInString, 0, MAX_CHEMSTRLEN);
     while(isdigit(chemCompound[elemPos])) {
@@ -150,11 +160,11 @@ void printElements(cElement* myElements) {
 
 // Checks if compound has valid syntax
 int isWrongSyntax(char* chemCompound) {
-    int i, ph;  // Counter
+    size_t i, ph;  // Counter
     int isInParenthesis = 0;    // Bool for chars in parenthesis
     char ch;    // Character holder for chemCompound chars
     for (i = 0; i < strlen(chemCompound); i++) {
-        char ch = chemCompound[i];
+        ch = chemCompound[i];
         // 1. If an opening parenthesis is found
         if(ch == '(') {
             // Ensure there is at least one letter after the parenthesis
@@ -239,7 +249,8 @@ void usr_input_diy(char *usrStr, size_t sizeof_usrStr, const char *prompt) {
     if(prompt != NULL) {
         printf("%s", prompt);
     }
-    int ch, counter = 0;
+    int ch;
+    size_t counter = 0;
 
     // Skip any leading whitespace
     while ((ch = getchar()) != EOF && isspace(ch));
@@ -339,7 +350,6 @@ int usr_input_num(double *num, const char *prompt) {
 // DIY power function for exponents of type int
 double power_int(double base, int32_t exponent) {
     if(exponent == 0) return 1; // Does not include case 0^0
-    uint32_t i; // Counter
     double result = 1.0;
     int32_t abs_exponent = (exponent > 0) ? exponent : -exponent;  // Handle negative exponent
 

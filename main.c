@@ -10,7 +10,7 @@ int main (int argc, char *argv[]) {
         else {
             strcpy(chemCompound, argv[2]);
         }
-        cElement* myElements = chemCount(chemCompound);
+        cElement* myElements = chemcount(chemCompound);
         if(myElements != NULL) {
             printElements(myElements);
             free(myElements);

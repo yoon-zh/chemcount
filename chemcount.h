@@ -15,12 +15,12 @@ typedef struct element_tag {
     float amount;
 } cElement;
 
-cElement* chemCount(char* chemCompound);
+cElement* chemcount(char* chemCompound);
 void findElements(char* chemCompound, cElement** myElements);
 int elementFound(char* chemCompound, char* elemSearch, int i, int chemClength);
 int isIn_cElement(char* elem, cElement* myElements);
 void addToMyElements(char* elem, cElement** myElements);
-float readDigits(char* chemCompound, int chemClength,int elemPos);
+float readDigits(char* chemCompound, int elemPos);
 void printElements(cElement* myElements);
 
 int isWrongSyntax(char* chemCompound);
