@@ -29,7 +29,7 @@ Import the chemcount library in your code:
 
 ```bash
 cd chemcount  
-gcc -o chemcount chemcount.c
+gcc -c chemcount.c chemcount.o
 gcc yourprogram.c chemcount.o -o yourprogram
 ```
 
@@ -108,7 +108,7 @@ To use this example, run the following commands in your terminal:
 ```bash
 git clone https://github.com/yoonzh/chemcount
 cd chemcount
-gcc -o chemcount chemcount.c
+gcc -c chemcount.c chemcount.o
 gcc main.c chemcount.o -o main
 ./main
 ```
