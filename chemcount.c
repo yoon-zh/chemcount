@@ -1,19 +1,5 @@
 #include "chemcount.h"
 
-// ClC5H2(OH)2
-// 1. int chemClength = strlen(chemCompound);
-// 2. if (!chemClength) return NULL;
-// 3. Define struct for myElements, malloc for 2 space
-// 4. Initialize strcpy(myElements[0].name, "TT"), myElements[0].num = 0
-// 5. if (chemCompound[i] == '('), char* inParenthesis = malloc(sizeof(char)), realloc for following chars
-// 6. if upper case, get position i, get element and check if is in struct
-//      If not in struct, realloc struct, elements.num ++
-//      If in struct, continue
-//      a. Read next element:
-//          if isadigit, get number and add to elements[i]
-//          if closing parenthesis: repeat a, free inParenthesis when done
-// 7. Return pointer of struct
-
 cElement* chemcount(char* chemCompound) {
     // 1. Validate the syntax of the chemCompound
     if(isWrongSyntax(chemCompound)) { 
@@ -47,8 +33,9 @@ void findElements(char* chemCompound, cElement** myElements) {
         // 1. If a parenthesis is found, look for the beginning/end and get the multiplier number
         case '(': 
             // 1. Look for numbers before the parenthesis
-            j = i-1; // j will look for the number length
-            while(isdigit(chemCompound[j--]) && j>0); // Move to the beginning of the number
+            j = i; // j will look for the number length
+            while(j>0 && isdigit(chemCompound[--j])); // Move to the beginning of the number
+            if (j != 0) j++;
             // Store multiplier for future elements
             multiplier = readDigits(chemCompound, j);
             
