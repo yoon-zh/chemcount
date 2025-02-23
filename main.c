@@ -15,7 +15,7 @@ int main (int argc, char *argv[]) {
             printElements(myElements);
             free(myElements);
         }
-        else printf("Error, invalid syntax...\n");
+        else puts("Error, invalid syntax...");
         pressEnterToContinue();
         if(argc > 1) return EXIT_SUCCESS;
     }

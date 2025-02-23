@@ -25,16 +25,16 @@ Import the chemcount library in your code:
 #include "chemcount.h"
 ```
  
- Then build into .o file and link into your function.
+Then build into object file and link into your function.
 
 ```bash
 cd chemcount  
-gcc -c chemcount.c chemcount.o
+gcc -c chemcount.c
 gcc yourprogram.c chemcount.o -o yourprogram
 ```
 
 ## Output Format
-The `cElement` struct is an array of arrays sorted by appearance.
+The `cElement` struct is an array of arrays sorted by order in the input string.
 
 ```c
 cElement[0].name = "TTT";
@@ -96,7 +96,7 @@ int main (int argc, char *argv[]) {
             printElements(myElements);
             free(myElements);
         }
-        else printf("Error, invalid syntax...\n");
+        else puts("Error, invalid syntax...");
         pressEnterToContinue();
         if(argc > 1) return EXIT_SUCCESS;
     }
@@ -110,12 +110,12 @@ To use this example, run the following commands in your terminal:
 ```bash
 git clone https://github.com/yoonzh/chemcount
 cd chemcount
-gcc -c chemcount.c chemcount.o
+gcc -c chemcount.c
 gcc main.c chemcount.o -o main
 ./main
 ```
 
 ## Assumptions
 - Case-sensitive: `Co` (cobalt) ≠ `CO` (carbon monoxide).
-- Parentheses: Coefficients outside parentheses apply to all nested elements (e.g., `(H2O)2 → H:4, O:2`).
+- Parentheses: Coefficients outside parentheses apply to all nested elements (e.g., `(H2O)2 → H:4, O:2`, `2(O2 + N2) → O:4, N:4`).
 - Implicit "1": Missing counts are treated as 1 (e.g., `OH → O:1, H:1`).
