@@ -25,6 +25,7 @@ void printElements(cElement* myElements);
 
 int isWrongSyntax(char* chemCompound);
 #define isStrEnd(ch) (ch == '\n' || ch == EOF || ch == '\0')
+#define isChemPunctuation(ch) (ch == '(' || ch == ')' || ch == '.' || ch == '+')
 
 // usrinput
 void usr_input(char *buffer, size_t sizeof_buffer, const char *prompt);

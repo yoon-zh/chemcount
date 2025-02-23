@@ -196,7 +196,7 @@ int isWrongSyntax(char* chemCompound) {
             if(!isupper(chemCompound[i-1]) && islower(chemCompound[i-1]) && !isupper(chemCompound[i-2])) return 1;
         }
 
-        else if (!isalnum(ch) && ch != '(' && ch != ')' && ch != '.' && !isStrEnd(ch) && !isspace(ch)) {
+        else if (!isalnum(ch) && !isChemPunctuation(ch) && !isStrEnd(ch) && !isspace(ch)) {
             return 1; // Has wrong syntax, return 1 (true)
         }
     }
