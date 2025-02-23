@@ -6,8 +6,8 @@ A simple library in C for a chemical formula parser that converts strings like `
 
 ## Features
 
-- Parses chemical formulas (e.g., `CoCl3 (NH3)6`) into element counts
-- Handles parentheses for grouped compounds (e.g., `(NH3)6 → N:6, H:18`)
+- Parses chemical formulas (e.g., `CoCl3 + 6(NH3)`) into element counts
+- Handles parentheses for grouped compounds (e.g., `6(CO2) → C:3, O:6`)
 - Returns a `cElement` struct with total element count `"TTT"` and individual element quantities
 
 ## Installation
@@ -51,6 +51,8 @@ for (int i = 0; i < cElement[0].amount+1; i++) {
 
 The other objects in the `cElement` struct contain the string of the element and its amount in the compound.
 
+`chemcount` has a built-in function `printElements(cElement)` to easily visualize the total elements in the `cElement` struct. 
+
 ## Example
 
 ```c
@@ -62,7 +64,7 @@ chemcount("C2H5OH");
  * ["O", 1]
  */
 
-chemcount("CoCl3 (NH3)6");
+chemcount("CoCl3 + 6(NH3)");
 /* Returns:
  * ["TTT", 4]
  * ["Co", 1]

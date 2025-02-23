@@ -142,6 +142,8 @@ void printElements(cElement* myElements) {
             printf("%.2f\n", myElements[i].amount);
         }
     }
+    printf("__________\n");
+    printf("Total:\t%d\n", (elemNum-1));
 }
 
 
