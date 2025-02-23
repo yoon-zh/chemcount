@@ -132,7 +132,7 @@ float readDigits(char* chemCompound, int elemPos) {
 
 void printElements(cElement* myElements) {
     int elemNum = myElements[0].amount + 1;
-    printf("Element\tAmount\n");
+    puts("Element\tAmount");
     for (int i = 1; i < elemNum; i++) {
         printf("%s\t", myElements[i].name);
         if (fabs(myElements[i].amount - (int)(myElements[i].amount)) < 1e-6) {
@@ -142,7 +142,7 @@ void printElements(cElement* myElements) {
             printf("%.2f\n", myElements[i].amount);
         }
     }
-    printf("__________\n");
+    puts("__________");
     printf("Total:\t%d\n", (elemNum-1));
 }
 
@@ -218,7 +218,7 @@ void usr_input(char *buffer, size_t sizeof_buffer, const char *prompt) {
     while(1) {
 		if (fgets(buffer, sizeof_buffer, stdin) == NULL) {
             // Display error message if it does not read input
-			printf("Error reading input.\n");
+			puts("Error reading input.");
 			continue;
 		}
 		// Remove newline character if present
@@ -226,7 +226,7 @@ void usr_input(char *buffer, size_t sizeof_buffer, const char *prompt) {
 
 		// Refuse empty inputs
 		if (strcmp(buffer, "") == 0) {
-			printf("Input cannot be empty.\n");
+			puts("Input cannot be empty.");
 		}
 		else {
 			return;
@@ -416,7 +416,7 @@ void strAppend(char* string1, char* string2) {
 // Exit program if malloc returns null
 void verifyMallocSuccess(void* data) {
     if (data == NULL) {
-        printf("Memory allocation failed :( ");
+        puts("Memory allocation failed :( ");
         exit(EXIT_FAILURE);
     }
 }
